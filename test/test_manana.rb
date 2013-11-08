@@ -48,6 +48,9 @@ class TestManana < MiniTest::Unit::TestCase
   def test_deferred_init
     handle = nil
     out, err = capture_io do
+      # the idea here is that we use the 'Strategy' pattern to store the method of initialization.
+      # in this case, it's really simple, but in a network service, it might be a config + some class method calls 
+      # to fully setup a service instance.
       handle = Manana.wrap {
         obj = @klass.new
       }
