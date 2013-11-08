@@ -1,0 +1,8 @@
+--no-private
+--protected
+--title "Manana Documentation"
+--markup markdown
+--readme README.md
+- 
+LICENSE.txt
+CHANGELOG.md
