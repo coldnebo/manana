@@ -1,0 +1,10 @@
+
+source 'https://rubygems.org'
+
+# these are gems used in the samples.
+# install with:
+# $ rake samples
+
+gem 'rack'
+gem 'savon', '~> 2.3'
+gem 'webmock'

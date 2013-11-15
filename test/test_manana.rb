@@ -22,11 +22,7 @@ class TestManana < MiniTest::Unit::TestCase
       end
 
       def raise_something
-        raise "kablewey!"       # simulate a call that raises an exception
-      end
-
-      def self.do_another_thing
-        "I did something else"  # simulate a class method call
+        raise "kablooey!"       # simulate a call that raises an exception
       end
     }
   end
@@ -43,6 +39,14 @@ class TestManana < MiniTest::Unit::TestCase
     assert_raises RuntimeError do 
       obj.raise_something
     end
+
+    begin
+      obj.raise_something
+    rescue Exception => e
+      # make sure we get an appropriate stack trace at the point of raise.
+      assert_match(/test_manana.rb:25:in .raise_something./, e.backtrace.first)
+    end
+
   end
 
   def test_deferred_init
@@ -66,6 +70,14 @@ class TestManana < MiniTest::Unit::TestCase
     assert_match(%r%class initialized!%, out)
     # and the method we called used
     assert_instance_of(String, result)
+
+
+    begin
+      handle.raise_something
+    rescue Exception => e
+      # make sure we get an appropriate stack trace at the point of raise.
+      assert_match(/test_manana.rb:25:in .raise_something./, e.backtrace.first)
+    end
 
 
   end

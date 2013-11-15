@@ -1,4 +1,4 @@
-Copyright (c) 2013 coldnebo
+Copyright (c) 2013 Larry Kyrala
 
 MIT License
 

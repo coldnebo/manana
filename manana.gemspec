@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Manana::VERSION
   spec.authors       = ["coldnebo"]
   spec.email         = ["larry.kyrala@gmail.com"]
-  spec.description   = %q{provides a simple way to defer initialization of an object to action on an object}
-  spec.summary       = %q{I'll get to your initialization tomorrow...}
-  spec.homepage      = ""
+  spec.description   = %q{provides a simple way to defer initialization of an object until its methods are called}
+  spec.summary       = %q{provides a simple way to defer initialization of an object until its methods are called}
+  spec.homepage      = "https://github.com/coldnebo/manana"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

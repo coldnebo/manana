@@ -1,12 +1,42 @@
 # Manana
 
-*Manana* lets you defer the initialization of any class to when an instance method is called.
+*Manana* lets you defer the initialization of an object until its methods are called.
 
-This can be useful in cases where class initialization may take a long time or fail due to errors (i.e. a network service). 
-In these situations, you don't want to tie the initialization of service adapters to the initialization of your application, 
-because if the service init fails, then your app fails to init and start (i.e. you want your app to be self-healing and 
-retry initialization when the method is called later)... also it can unncessarily increase the startup
-time of your app for testcases, etc.
+This can be useful in cases where initialization may take a long time or fail due to errors. For example, in rails, if 
+the database specified in `database.yml` doesn't exist at start time, the rails application will fail initialization. Likewise 
+if you tie configuration of SOAP services (e.g. using [Savon](http://savonrb.com/version2/)) to your application initialization, 
+and the service wsdl isn't up, your application will fail to start.
+
+Instead, it is an established best practice in service-oriented architectures to make your application or service *startup order independent*: 
+i.e. your app starts fast and initializes other dependencies afterwards, providing fault detection and *self-healing* properties for the app.
+
+*Manana* is a simple approach that allows you to keep your configuration and initialization code in the same place, while deferring it to method calls. 
+
+### Pros
+
+* Reduces the startup time for your app. (i.e. moves the startup cost from initialization to first use)
+
+* Once initialization is succesful, it stores the object instance for reuse.
+
+* Until the initialization is successful, it will retry every time a method is called.
+
+* You can layer more complex retry semantics such as [exponential backoff](http://en.wikipedia.org/wiki/Exponential_backoff) using this wrapper.  See [samples/exponential_backoff.rb](https://github.com/coldnebo/manana/blob/master/samples/exponential_backoff.rb)
+
+### Cons
+
+* If your initialization takes a very long time, (i.e. a cache) you may want to pre-warm it instead of taking the hit on the first use of the object.
+
+* Very simple approach.  You may want more complex retry semantics,  or pooling.
+
+### Similar ideas:
+
+* [Connection pool](http://en.wikipedia.org/wiki/Connection_pool) of one?
+
+* [Avoid Start Order Dependencies](http://wiki.osgi.org/wiki/Avoid_Start_Order_Dependencies)
+
+* [Data Centers need shutdown/startup order](http://www.boche.net/blog/index.php/2009/01/01/datacenters-need-shutdownstartup-order/)
+
+* 'self-healing' initialization faults from the practice of [Autonomic computing](http://en.wikipedia.org/wiki/Autonomic_computing)
 
 ## Installation
 
@@ -24,7 +54,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+See the [samples](https://github.com/coldnebo/manana/blob/master/samples) for examples of use.
 
 ## Contributing
 
