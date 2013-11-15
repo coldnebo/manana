@@ -54,19 +54,21 @@ Or install it yourself as:
 
 ## Usage
 
-    require 'manana'
+```ruby
+require 'manana'
 
-    #   initialization...
-    client = Manana.wrap {
-      Weather.setup    # web service adapter setup
-      Weather          # return the class instance
-    }
+# initialization...
+client = Manana.wrap {
+  Weather.setup    # web service adapter setup
+  Weather          # return the class instance
+}
 
-    runtime_loop {
-      #   wait for next interval
-      weather = client.city_weather("02201")    # deferred initialization happens here once
-      puts "At %s the temperature is currently %s F and the humidity is %s." % [weather.city, weather.temperature, weather.relative_humidity]
-    }
+runtime_loop {
+  #   wait for next interval
+  weather = client.city_weather("02201")    # deferred initialization happens here once
+  puts "At %s the temperature is currently %s F and the humidity is %s." % [weather.city, weather.temperature, weather.relative_humidity]
+}
+```
 
 
 See the [samples](https://github.com/coldnebo/manana/blob/master/samples) for more detailed examples of use.
