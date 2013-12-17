@@ -44,7 +44,7 @@ mini_death_star = nil
 puts "[Vader]: requsition a new DeathStar and make it snappy!"
 # boss said requisitions have to be faster*!  Manana to the rescue!
 puts Benchmark.measure {
-  mini_death_star = Manana.wrap {
+  mini_death_star = Manana.deferred_init {
     DeathStar.new
   }
 }

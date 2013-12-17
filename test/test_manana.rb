@@ -1,41 +1,26 @@
 require 'minitest_helper'
+require 'klass'
 
 class TestManana < MiniTest::Unit::TestCase
   def test_that_it_has_a_version_number
     refute_nil ::Manana::VERSION
   end
 
-  # initialize a very generic example object that does some stuff in initialization and has some instance methods you can call.
+  # initialize a very generic example object that does some stuff in initialization 
+  # and has some instance methods you can call.
   def setup
-    @klass = Class.new
-    @klass.class_eval {
-      def initialize
-        puts "class initialized!"
-      end
-
-      def do_something
-        "I did something!"      # simulate an arbitrary method
-      end
-
-      def add_something(x,y)
-        x+y                     # simulate a method with params
-      end
-
-      def raise_something
-        raise "kablooey!"       # simulate a call that raises an exception
-      end
-    }
   end
 
   # sanity check
   def test_that_things_work_without_manana
     obj = nil
+
     out, err = capture_io do
-      obj = @klass.new
+      obj = Klass.new
     end
-    assert_match(%r%class initialized!%, out)
+    assert_match(/#{Klass::INITIALIZE_MESSAGE}/, out)
     assert_instance_of(String, obj.do_something)
-    assert_equal(5, obj.add_something(2,3))
+    assert_match(/#{Klass::DO_SOMETHING_MESSAGE}/, obj.do_something)
     assert_raises RuntimeError do 
       obj.raise_something
     end
@@ -44,43 +29,40 @@ class TestManana < MiniTest::Unit::TestCase
       obj.raise_something
     rescue Exception => e
       # make sure we get an appropriate stack trace at the point of raise.
-      assert_match(/test_manana.rb:25:in .raise_something./, e.backtrace.first)
+      assert_match(/.*klass.rb:\d+:in .raise_something./, e.backtrace.first)
     end
-
   end
 
   def test_deferred_init
-    handle = nil
+    obj = nil
     out, err = capture_io do
-      # the idea here is that we use the 'Strategy' pattern to store the method of initialization.
-      # in this case, it's really simple, but in a network service, it might be a config + some class method calls 
-      # to fully setup a service instance.
-      handle = Manana.wrap {
-        obj = @klass.new
+      obj = Manana.deferred_init {
+        Klass.new
       }
     end
     # make sure the init isn't executed until we call...
-    refute_match(%r%class initialized!%, out)
-    
+    refute_match(/#{Klass::INITIALIZE_MESSAGE}/, out)
+
+    # now call a method on the object...
     result = nil
     out, err = capture_io do
-      result = handle.do_something
+      result = obj.do_something
     end
-    # now it should have been inited
-    assert_match(%r%class initialized!%, out)
-    # and the method we called used
+    # and make sure the init was called
+    assert_match(/#{Klass::INITIALIZE_MESSAGE}/, out)
+    # and that we got the desired result
     assert_instance_of(String, result)
-
+    assert_match(/#{Klass::DO_SOMETHING_MESSAGE}/, result)
+    assert_raises RuntimeError do 
+      obj.raise_something
+    end
 
     begin
-      handle.raise_something
+      obj.raise_something
     rescue Exception => e
       # make sure we get an appropriate stack trace at the point of raise.
-      assert_match(/test_manana.rb:25:in .raise_something./, e.backtrace.first)
+      assert_match(/.*klass.rb:\d+:in .raise_something./, e.backtrace.first)
     end
-
-
   end
-
 
 end

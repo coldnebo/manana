@@ -17,16 +17,16 @@ require "manana/version"
 #
 class Manana
 
-  # wraps an object initialization block so that it can be deferred to a later time when object methods are called.
+  # wraps an initialization block so that it can be deferred to a later time when object methods are called.
   # @example wrap an object - see {https://github.com/coldnebo/manana/blob/master/samples/self_healing.rb samples/self_healing.rb}
-  #   client = Manana.wrap {
+  #   client = Manana.deferred_init {
   #     Weather.setup  # initialize the class 
   #     Weather        # return the Weather class
   #   }
   # 
   # @param initialization_block [Proc] object initialization. the block must return the object to be wrapped.
   # @return [Manana] a wrapped version of the object.
-  def self.wrap(&initialization_block)
+  def self.deferred_init(&initialization_block)
     Manana.new(&initialization_block)
   end 
 

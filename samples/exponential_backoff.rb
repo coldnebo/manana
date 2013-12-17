@@ -31,7 +31,7 @@ end
 
 # ------------ initialization code
 
-client = Manana.wrap {
+client = Manana.deferred_init {
   # exponential backkoff logic in the initialization block
   retries = 0
   obj = nil

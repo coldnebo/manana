@@ -47,7 +47,7 @@ end
 
 # Before we start, we use Manana to wrap the client setup so that method calls on the client can be self-healing in case of failure.
 # NOTE: that the caller doesn't have to deal with whether or not this initialization succeeded, they can just call the client methods repeatedly.
-client = Manana.wrap {
+client = Manana.deferred_init {
   Weather.setup
   Weather
 }
