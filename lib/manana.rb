@@ -16,6 +16,7 @@ require "manana/version"
 #   }
 #
 class Manana
+  include MonitorMixin
 
   # wraps an initialization block so that it can be deferred to a later time when object methods are called.
   # @example wrap an object - see {https://github.com/coldnebo/manana/blob/master/samples/self_healing.rb samples/self_healing.rb}
@@ -38,14 +39,21 @@ class Manana
   #   weather = client.city_weather("02201")
   #
   def method_missing(method, *args, &block)
-    instance = get_instance
+    instance = safe_get_instance
     instance.send(method, *args, &block);
   end
 
   private
 
   def initialize(&initialization_block)
+    @mutex = Mutex.new
     @deferred_initialization = initialization_block
+  end
+
+  def safe_get_instance
+    @mutex.synchronize do 
+      get_instance
+    end
   end
 
   def get_instance
@@ -54,6 +62,5 @@ class Manana
     end
     @instance
   end
-
 
 end

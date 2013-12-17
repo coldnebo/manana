@@ -65,4 +65,25 @@ class TestManana < MiniTest::Unit::TestCase
     end
   end
 
+  # https://github.com/coldnebo/manana/issues/1 
+  def test_that_init_is_threadsafe
+    Klass.reset
+
+    klass = Manana.deferred_init {
+      sleep(1)
+      Klass.incr
+      Klass
+    }
+
+    t1 = Thread.new{klass.count}
+    t2 = Thread.new{klass.count}
+    t3 = Thread.new{klass.count}
+    t1.join
+    t2.join
+    t3.join
+
+    assert_equal(1,klass.count)
+  end
+
+
 end
