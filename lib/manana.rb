@@ -16,8 +16,7 @@ require "manana/version"
 #   }
 #
 class Manana
-  include MonitorMixin
-
+  
   # wraps an initialization block so that it can be deferred to a later time when object methods are called.
   # @example wrap an object - see {https://github.com/coldnebo/manana/blob/master/samples/self_healing.rb samples/self_healing.rb}
   #   client = Manana.deferred_init {
