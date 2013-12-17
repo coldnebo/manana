@@ -1,7 +1,7 @@
 require 'minitest_helper'
 require 'klass'
 
-class TestManana < MiniTest::Unit::TestCase
+class TestManana < Minitest::Test
   def test_that_it_has_a_version_number
     refute_nil ::Manana::VERSION
   end
