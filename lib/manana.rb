@@ -39,7 +39,16 @@ class Manana
   #
   def method_missing(method, *args, &block)
     instance = safe_get_instance
-    instance.send(method, *args, &block);
+    if @wrapper.nil?
+      instance.send(method, *args, &block)
+    else
+      blk = Proc.new{ instance.send(method, *args, &block) }
+      @wrapper.call(blk)
+    end
+  end
+
+  def wrap_methods(&block)
+    @wrapper = block
   end
 
   private

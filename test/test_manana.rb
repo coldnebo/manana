@@ -85,5 +85,24 @@ class TestManana < Minitest::Test
     assert_equal(1,klass.count)
   end
 
+  # https://github.com/coldnebo/manana/issues/2
+  def test_methods_may_be_wrapped
+    obj = Manana.deferred_init {
+      Klass.new
+    }
+    obj.wrap_methods {|method|
+      result = "before; "
+      result << method.call
+      result << " ;after"
+    }
+
+    result = nil
+    out, err = capture_io do
+      result = obj.do_something
+    end
+    assert_instance_of(String, result)
+    assert_match(/before; #{Klass::DO_SOMETHING_MESSAGE} ;after/, result)
+
+  end
 
 end
