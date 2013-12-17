@@ -4,7 +4,7 @@ require "manana/version"
 # *Manana* lets you defer the initialization of an object until its methods are called.
 # @example basic usage - see {https://github.com/coldnebo/manana/blob/master/samples/self_healing.rb samples/self_healing.rb}
 #   #   initialization...
-#   client = Manana.wrap {
+#   client = Manana.deferred_init {
 #     Weather.setup
 #     Weather
 #   }

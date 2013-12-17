@@ -58,7 +58,7 @@ Or install it yourself as:
 require 'manana'
 
 # initialization...
-client = Manana.wrap {
+client = Manana.deferred_init {
   Weather.setup    # web service adapter setup
   Weather          # return the class instance
 }
