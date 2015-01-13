@@ -10,10 +10,12 @@ unless ENV["TRAVIS"] == "1"
     gem 'yard'
     gem 'redcarpet'
 
-    gem 'pry'
-    gem 'pry-debugger'
-    gem 'pry-rescue'
-    gem 'pry-stack_explorer'
+    if RUBY_VERSION =~ /^2\./
+      gem 'pry-byebug'
+    else
+      gem 'pry'
+    end
+
   end
 
   group :samples do
