@@ -33,10 +33,10 @@ class TestManana < Minitest::Test
     end
   end
 
-  def test_deferred_init
+  def test_wrap
     obj = nil
     out, err = capture_io do
-      obj = Manana.deferred_init {
+      obj = Manana.wrap {
         Klass.new
       }
     end
@@ -65,11 +65,12 @@ class TestManana < Minitest::Test
     end
   end
 
+
   # https://github.com/coldnebo/manana/issues/1 
   def test_that_init_is_threadsafe
     Klass.reset
 
-    klass = Manana.deferred_init {
+    klass = Manana.wrap {
       sleep(1)
       Klass.incr
       Klass

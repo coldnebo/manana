@@ -23,9 +23,9 @@ class TestWithSubclass < Minitest::Test
 
   end
 
-  def test_deferred_init
+  def test_wrap
 
-    @subklass = Manana.deferred_init {
+    @subklass = Manana.wrap {
       unless BaseKlass.connected?
         BaseKlass.establish_connection 
       end
