@@ -1,3 +1,3 @@
-class Manana
-  VERSION = "0.5.0"
+module Manana
+  VERSION = "1.0.0"
 end

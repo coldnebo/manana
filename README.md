@@ -42,7 +42,9 @@ i.e. your app starts fast and initializes other dependencies afterwards, providi
 
 Add this line to your application's Gemfile:
 
-    gem 'manana'
+```ruby
+gem 'manana'
+```
 
 And then execute:
 
@@ -75,8 +77,12 @@ See the [samples](https://github.com/coldnebo/manana/blob/master/samples) for mo
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/manana. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## Code of Conduct
+
+Everyone interacting in the Manana project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/manana/blob/master/CODE_OF_CONDUCT.md).
