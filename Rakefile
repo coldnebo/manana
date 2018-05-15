@@ -21,6 +21,7 @@ end
 # binding.pry
 
 CLOBBER << "coverage"
+CLOBBER << "samples/common/samples.gemfile.lock"
 
 #CLOBBER << Rake::FileList.new("coverage/**/*", "coverage")
 
