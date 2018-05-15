@@ -9,9 +9,18 @@ end
 
 task :default => :test
 
-desc "install gems for running samples"
-task :samples do
-  Bundler.with_clean_env do
-    sh "bundle install --gemfile=samples/common/samples.gemfile"
-  end
-end
+# desc "install gems for running samples"
+# task :samples do
+#   Bundler.with_clean_env do
+#     sh "bundle install --gemfile=samples/common/samples.gemfile"
+#   end
+# end
+
+
+# require 'pry'
+# binding.pry
+
+CLOBBER << "coverage"
+
+#CLOBBER << Rake::FileList.new("coverage/**/*", "coverage")
+
