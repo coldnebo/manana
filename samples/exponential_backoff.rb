@@ -9,7 +9,6 @@ require_relative 'common/samples_helper.rb'
 # ------------------------- sample code starts here -------------------------
 
 require 'manana'
-require 'benchmark'
 
 
 class PoorService

@@ -6,7 +6,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gemspec
 
 unless ENV["TRAVIS"] == "1"
-  group :development do 
+  group :development, :test do 
     gem 'pry'
   end
 

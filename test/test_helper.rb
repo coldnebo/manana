@@ -1,4 +1,5 @@
 unless ENV["TRAVIS"] == "1"
+  require 'pry'
   require 'simplecov'
   SimpleCov.start do
     add_filter "/test/"
