@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/coldnebo/manana.svg?branch=master)](https://travis-ci.org/coldnebo/manana)
+
 # Manana
 
 *Manana* lets you defer the initialization of an object until its methods are called.
