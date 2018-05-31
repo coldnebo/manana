@@ -10,3 +10,5 @@ samples/common/samples.gemfile.lock
 
 # ignore rvm
 .ruby-*
+
+Gemfile.lock
