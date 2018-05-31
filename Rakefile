@@ -22,6 +22,16 @@ end
 
 CLOBBER << "coverage"
 CLOBBER << "samples/common/samples.gemfile.lock"
+CLOBBER << ".yardoc"
 
 #CLOBBER << Rake::FileList.new("coverage/**/*", "coverage")
 
+
+desc "clean the intermediate yardoc and start a yard server - just for local development" 
+task :yardserver do
+  exec "yard server --reload -b 0.0.0.0"
+end
+
+
+require 'yard'
+YARD::Rake::YardocTask.new :doc
